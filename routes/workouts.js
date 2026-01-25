@@ -112,14 +112,16 @@ router.put('/:id', async (req, res) => {
       }
     };
 
-    const result = await col.findOneAndUpdate(
-      { _id: new ObjectId(id) },
-      update,
-      { returnDocument: 'after' }
-    );
+const filter = { _id: new ObjectId(id) };
 
-    if (!result.value) return res.status(404).json({ error: 'Not found' });
-    res.status(200).json(result.value);
+const upd = await col.updateOne(filter, update);
+
+if (upd.matchedCount === 0) {
+  return res.status(404).json({ error: 'Not found' });
+}
+
+const updatedDoc = await col.findOne(filter);
+return res.status(200).json(updatedDoc);
   } catch {
     res.status(500).json({ error: 'Server error' });
   }
