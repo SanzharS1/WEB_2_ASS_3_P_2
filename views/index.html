@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FitLife Tracker</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <ul>
+        <li><a href="/">Workouts</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/api/info" target="_blank">API Info</a></li>
+      </ul>
+    </nav>
+
+    <h1>FitLife Tracker</h1>
+    <p class="small">CRUD via Web UI (No Postman)</p>
+
+    <div id="msg"></div>
+
+    <h2>Create / Update Workout</h2>
+    <form id="form">
+      <input type="hidden" id="workoutId" />
+
+      <label>Name</label>
+      <input id="name" required placeholder="Run" />
+
+      <label>Duration</label>
+      <input id="duration" type="number" min="1" required placeholder="30" />
+
+      <label>Type</label>
+      <input id="type" required placeholder="Cardio" />
+
+      <button class="btn" id="submitBtn" type="submit">Create</button>
+      <button class="btn" id="cancelEdit" type="button" style="display:none;">Cancel</button>
+    </form>
+
+    <h2>Workouts Table</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Name</th><th>Duration</th><th>Type</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
