@@ -20,8 +20,8 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'dev_secret',
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGO_URI,
+  store: new MongoStore({
+    client: cachedClient,
     dbName: process.env.MONGO_DB || 'fitlife',
     collectionName: 'sessions',
   }),
