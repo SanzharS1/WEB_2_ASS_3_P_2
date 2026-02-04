@@ -16,7 +16,23 @@
     </nav>
 
     <h1>FitLife Tracker</h1>
-    <p class="small">CRUD via Web UI (No Postman)</p>
+    <p class="small">CRUD via Web UI (No Postman) + Sessions Login</p>
+
+    <!-- LOGIN BLOCK -->
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label>Email</label>
+      <input id="email" required placeholder="admin@fitlife.com" />
+
+      <label>Password</label>
+      <input id="password" type="password" required placeholder="admin123" />
+
+      <button class="btn" type="submit">Login</button>
+      <button class="btn" id="logoutBtn" type="button" style="display:none;">Logout</button>
+    </form>
+
+    <p id="authStatus" class="small"></p>
+    <hr/>
 
     <div id="msg"></div>
 
@@ -25,13 +41,28 @@
       <input type="hidden" id="workoutId" />
 
       <label>Name</label>
-      <input id="name" required placeholder="Run" />
+      <input id="name" required placeholder="Morning Run" />
 
-      <label>Duration</label>
+      <label>Duration (min)</label>
       <input id="duration" type="number" min="1" required placeholder="30" />
 
       <label>Type</label>
       <input id="type" required placeholder="Cardio" />
+
+      <label>Intensity</label>
+      <input id="intensity" required placeholder="Medium" />
+
+      <label>Calories</label>
+      <input id="calories" type="number" min="0" required placeholder="250" />
+
+      <label>Date</label>
+      <input id="date" required placeholder="2026-02-04" />
+
+      <label>Notes</label>
+      <input id="notes" placeholder="Park route" />
+
+      <label>Status</label>
+      <input id="status" required placeholder="done" />
 
       <button class="btn" id="submitBtn" type="submit">Create</button>
       <button class="btn" id="cancelEdit" type="button" style="display:none;">Cancel</button>
@@ -41,7 +72,15 @@
     <table>
       <thead>
         <tr>
-          <th>ID</th><th>Name</th><th>Duration</th><th>Type</th><th>Actions</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Duration</th>
+          <th>Type</th>
+          <th>Intensity</th>
+          <th>Calories</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
