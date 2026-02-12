@@ -1,10 +1,9 @@
 const express = require('express');
 const path = require('path');
-const session = require('express-session');
-
-const MongoStore = require('connect-mongo').default;
 
 const logger = require('./middleware/logger');
+const { buildSessionMiddleware } = require('./config/sessions');
+
 const workoutsRouter = require('./routes/workouts');
 const authRouter = require('./routes/auth');
 
@@ -14,33 +13,11 @@ if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1);
 }
 
-// Middlewares
 app.use(logger);
 app.use(express.static('public'));
 app.use(express.json());
 
-// Sessions (cookie-based)
-app.use(
-  session({
-    name: 'sid',
-    secret: process.env.SESSION_SECRET || 'dev_secret',
-    resave: false,
-    saveUninitialized: false,
-
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI,
-      dbName: process.env.MONGO_DB || 'fitlife',
-      collectionName: 'sessions',
-    }),
-
-    cookie: {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'lax',
-      maxAge: 1000 * 60 * 60 * 24, 
-    },
-  })
-);
+app.use(buildSessionMiddleware());
 
 // UI pages
 app.get('/', (req, res) => {
@@ -51,18 +28,25 @@ app.get('/about', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'about.html'));
 });
 
-// Auth API
+// API
 app.use('/api/auth', authRouter);
-
-// Workouts API
 app.use('/api/workouts', workoutsRouter);
 
 app.get('/api/info', (req, res) => {
   res.json({
     project: 'FitLife Tracker',
-    assignment: 'Assignment 4 (Sessions & Security)',
+    stage: 'Final Project (Production Web Application)',
+    auth: 'Sessions + bcrypt',
+    roles: ['user', 'admin'],
+    security: {
+      protectedWrites: true,
+      ownerAccess: true,
+      roleBasedAccess: true,
+      httpOnlyCookie: true,
+      envSecrets: true,
+      pagination: true,
+    },
     time: new Date().toISOString(),
-    protectedWrites: true, 
   });
 });
 

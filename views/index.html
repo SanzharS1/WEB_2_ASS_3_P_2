@@ -22,13 +22,27 @@
     <h2>Login</h2>
     <form id="loginForm">
       <label>Email</label>
-      <input id="email" required placeholder="admin@fitlife.com" />
+      <input id="email" type="email" required placeholder="example@email.com" autocomplete="username" />
 
       <label>Password</label>
-      <input id="password" type="password" required placeholder="admin123" />
+      <input id="password" type="password" required placeholder="Your password" autocomplete="current-password" />
 
       <button class="btn" type="submit">Login</button>
       <button class="btn" id="logoutBtn" type="button" style="display:none;">Logout</button>
+    </form>
+
+    <h2>Register</h2>
+    <form id="registerForm">
+      <label>Name</label>
+      <input id="regName" required placeholder="Your name" />
+
+      <label>Email</label>
+      <input id="regEmail" required placeholder="user@fitlife.com" />
+
+      <label>Password</label>
+      <input id="regPassword" type="password" required placeholder="min 6 chars" />
+
+      <button class="btn" type="submit">Register</button>
     </form>
 
     <p id="authStatus" class="small"></p>
@@ -56,7 +70,7 @@
       <input id="calories" type="number" min="0" required placeholder="250" />
 
       <label>Date</label>
-      <input id="date" required placeholder="2026-02-04" />
+      <input id="date" type="date" required />
 
       <label>Notes</label>
       <input id="notes" placeholder="Park route" />
@@ -85,6 +99,14 @@
       </thead>
       <tbody id="tbody"></tbody>
     </table>
+
+    <!-- PAGINATION -->
+    <div style="margin-top:20px;">
+      <button class="btn" id="prevPage">Prev</button>
+      <span id="pageInfo" style="margin:0 10px;"></span>
+      <button class="btn" id="nextPage">Next</button>
+    </div>
+
   </div>
 
   <script src="/app.js"></script>
